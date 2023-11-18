@@ -3,12 +3,13 @@ import Sectiontitle from "../../../Component/SectionTitle/Sectiontitle";
 import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axoiosSecure = useAxiosSecure();
   const onSubmit = async (data) => {
@@ -33,6 +34,15 @@ const AddItems = () => {
       console.log(menuRes.data);
       if(menuRes.data.insertedId){
         // show success popup
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title:`${data.name} is added to the menu`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+
       }
     }
     console.log( "with img url",res.data);
