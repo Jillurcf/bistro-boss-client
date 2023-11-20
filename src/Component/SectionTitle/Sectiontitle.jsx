@@ -8,4 +8,5 @@ const Sectiontitle = ({heading, subHeading}) => {
     );
 };
 
+
 export default Sectiontitle;
